@@ -15,7 +15,52 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/pbkdf2.js"></script>
-  
+    <style>
+        .title {
+            text-align: center;
+            margin: auto;
+            width: 100%;
+            font-weight: bold;
+        }
+        input[type=text], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #3fb8e8;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type=password], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #3fb8e8;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        #request {
+            margin: auto;
+            width:100%;
+            height:45px;
+            border:none;
+            outline:none;
+            box-shadow:0 3px 2px 0 #2c80a2;
+            color:#fff;
+            font-size:14px;
+            text-shadow:0 1px rgba(0,0,0,0.4);
+            background-color:#3fb8e8;
+            font-weight:700;
+            background-repeat:no-repeat;
+            background-position:200px
+        }
+        #request:hover{
+            background-color: #32a9d8;
+        }
+
+    </style>
 
 </head>
 <body>
@@ -28,9 +73,9 @@
             <form id="input">
                 <input type="text" pattern="\w*" placeholder="Twój login" id="user">
                 <input type="text" pattern="\w*" placeholder="Twój głos" id="text">
-                <input type="text" pattern="\w*" placeholder="Otrzymane hasło" id="password">
-                <input type="text" pattern="\w*" placeholder="Hasło do szyfrowania" id="encryption">
-                <button type="submit" id="request"></button>
+                <input type="password" pattern="\w*" placeholder="Otrzymane hasło" id="password">
+                <input type="password" pattern="\w*" placeholder="Hasło do szyfrowania" id="encryption">
+                <button type="submit" id="request">Wyślij</button>
             </form>
         </div>
         <div id="response">
