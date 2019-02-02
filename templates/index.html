@@ -7,9 +7,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="scripts/vanilla.js"></script>
-    <script src="scripts/rollups/pbkdf2.js"></script>
-    <script src="scripts/rollups/aes.js"></script>
-
+    <!--<script src="scripts/CryptoJS/rollups/pbkdf2.js"></script>
+    <script src="scripts/CryptoJS/rollups/aes.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/pbkdf2.js"></script>
+  
 
 </head>
 <body>
@@ -27,7 +33,7 @@
                 <button type="submit" id="request"></button>
             </form>
         </div>
-        <div class="response">
+        <div id="response">
         </div>
 
     </div>
@@ -36,10 +42,9 @@
         var textInput = document.getElementById("text");
         var passwordInput = document.getElementById("password");
         var encryptionPasswordInput = document.getElementById("encryption");
-        var response = document.getElementsByClassName("response")
+        var resp = document.getElementById("response");
         var request = new XMLHttpRequest();
-        request.open("Post", "save", true)
-        request.setRequestHeader("Content-Type", "application/json")
+        
         request.onreadystatechange = function() {
             if (request.readyState === 4) {
                 if (request.status === 200) {
@@ -51,19 +56,19 @@
                         else {
                             var p = document.createElement("p");
                             p.innerHTML = "Zaszyfrowano i zapisano!"
-                            response.appendChild(p);
+                            resp.appendChild(p);
                         }
                     }
                     else {
                         var p = document.createElement("p");
                         p.innerHTML = "Wystąpił jakiś błąd. Czy na pewno wprowadziłeś poprawne hasło?"
-                        response.appendChild(p);
+                        resp.appendChild(p);
                     }
                 }
             }
         }
 
-        document.getElementById('ajax-upload').addEventListener("submit", function(e){
+        document.getElementById('input').addEventListener("submit", function(e){
             e.preventDefault();
             var message = encryptData();
             sendData(message);
@@ -88,14 +93,20 @@
             return message;
         }
         function sendData(message){
+            request.open("Post", "/save", true)
+            request.setRequestHeader("Content-Type", "application/json")
+
             var data = JSON.stringify({"user":userInput.value, "text":message, "password":passwordInput.value});
             request.send(data);
         }
         function decrypt(text) {
+            var keySize = 256;
+            var ivSize = 128;
+            var iterations = 200;
             var salt = CryptoJS.enc.Hex.parse(text.substr(0, 32));
             var iv = CryptoJS.enc.Hex.parse(text.substr(32, 32))
             var encrypted = text.substring(64);
-            var key = CryptoJS.PBKDF2(encryptionPasswordInput, salt, {
+            var key = CryptoJS.PBKDF2(encryptionPasswordInput.value, salt, {
                 keySize: keySize/32,
                 iterations: iterations
             });
@@ -107,7 +118,8 @@
             textInput.value = decrypted.toString(CryptoJS.enc.Utf8);
             var p = document.createElement("p");
             p.innerHTML = "Odszyfrowano"
-            response.appendChild(p);
+            resp.appendChild(p);
+
             return 0;
         }
     </script>
