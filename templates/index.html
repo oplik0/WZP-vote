@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pl">
+ 
+<head>
+    <title>głosowanie</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="scripts/vanilla.js"></script>
+    <script src="scripts/rollups/pbkdf2.js"></script>
+    <script src="scripts/rollups/aes.js"></script>
+
+
+</head>
+<body>
+ 
+    <div class="container">
+        <div class="title">
+            <h1>GŁOSOWANIE</h1>
+        </div>
+        <div class="inputs">
+            <form id="input">
+                <input type="text" pattern="\w*" placeholder="Twój login" id="user">
+                <input type="text" pattern="\w*" placeholder="Twój głos" id="text">
+                <input type="text" pattern="\w*" placeholder="Otrzymane hasło" id="password">
+                <input type="text" pattern="\w*" placeholder="Hasło do szyfrowania" id="encryption">
+                <button type="submit" id="request"></button>
+            </form>
+        </div>
+        <div class="response">
+        </div>
+
+    </div>
+    <script>
+        var userInput = document.getElementById("user");
+        var textInput = document.getElementById("text");
+        var passwordInput = document.getElementById("password");
+        var encryptionPasswordInput = document.getElementById("encryption");
+        var response = document.getElementsByClassName("response")
+        var request = new XMLHttpRequest();
+        request.open("Post", "save", true)
+        request.setRequestHeader("Content-Type", "application/json")
+        request.onreadystatechange = function() {
+            if (request.readyState === 4) {
+                if (request.status === 200) {
+                    var data = JSON.parse(request.responseText);
+                    if (data["error"]=="none") {
+                        if (data["type"]=="decryption") {
+                            decrypt(data["text"])
+                        }
+                        else {
+                            var p = document.createElement("p");
+                            p.innerHTML = "Zaszyfrowano i zapisano!"
+                            response.appendChild(p);
+                        }
+                    }
+                    else {
+                        var p = document.createElement("p");
+                        p.innerHTML = "Wystąpił jakiś błąd. Czy na pewno wprowadziłeś poprawne hasło?"
+                        response.appendChild(p);
+                    }
+                }
+            }
+        }
+
+        document.getElementById('ajax-upload').addEventListener("submit", function(e){
+            e.preventDefault();
+            var message = encryptData();
+            sendData(message);
+        });
+        function encryptData(){
+            var keySize = 256;
+            var ivSize = 128;
+            var iterations = 200;
+            var salt = CryptoJS.lib.WordArray.random(128/8);
+  
+            var key = CryptoJS.PBKDF2(encryptionPasswordInput.value, salt, {
+                keySize: keySize/32,
+                iterations: iterations
+            });
+            var iv = CryptoJS.lib.WordArray.random(128/8);
+            var encrypted = CryptoJS.AES.encrypt(textInput.value, key, { 
+                iv: iv, 
+                padding: CryptoJS.pad.Pkcs7,
+                mode: CryptoJS.mode.CBC
+            });
+            var message = salt.toString()+ iv.toString() + encrypted.toString();
+            return message;
+        }
+        function sendData(message){
+            var data = JSON.stringify({"user":userInput.value, "text":message, "password":passwordInput.value});
+            request.send(data);
+        }
+        function decrypt(text) {
+            var salt = CryptoJS.enc.Hex.parse(text.substr(0, 32));
+            var iv = CryptoJS.enc.Hex.parse(text.substr(32, 32))
+            var encrypted = text.substring(64);
+            var key = CryptoJS.PBKDF2(encryptionPasswordInput, salt, {
+                keySize: keySize/32,
+                iterations: iterations
+            });
+            var decrypted = CryptoJS.AES.decrypt(encrypted, key, { 
+                iv: iv, 
+                padding: CryptoJS.pad.Pkcs7,
+                mode: CryptoJS.mode.CBC  
+            });
+            textInput.value = decrypted.toString(CryptoJS.enc.Utf8);
+            var p = document.createElement("p");
+            p.innerHTML = "Odszyfrowano"
+            response.appendChild(p);
+            return 0;
+        }
+    </script>
+</body>
+</html>
