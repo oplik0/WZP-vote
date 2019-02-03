@@ -105,12 +105,18 @@
                             decrypt(data["text"])
                         }
                         else {
+                            while (resp.firstChild) {
+                                resp.removeChild(myNode.firstChild);
+                            }
                             var p = document.createElement("p");
                             p.innerHTML = "Zaszyfrowano i zapisano!"
                             resp.appendChild(p);
                         }
                     }
                     else {
+                        while (resp.firstChild) {
+                            resp.removeChild(myNode.firstChild);
+                        }
                         var p = document.createElement("p");
                         p.innerHTML = "Wystąpił jakiś błąd. Czy na pewno wprowadziłeś poprawne hasło?"
                         resp.appendChild(p);
@@ -167,6 +173,9 @@
                 mode: CryptoJS.mode.CBC  
             });
             textInput.value = decrypted.toString(CryptoJS.enc.Utf8);
+            while (resp.firstChild) {
+                resp.removeChild(myNode.firstChild);
+            }
             var p = document.createElement("p");
             p.innerHTML = "Odszyfrowano"
             resp.appendChild(p);
