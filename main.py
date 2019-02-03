@@ -17,7 +17,15 @@ def save():
                         saved_file.write(text)
                         return(jsonify({"error":"none", "type":"encryption"}))
                 else:
-                    return(jsonify({"error":"password"}))
+                    if password=="":
+                        try:
+                            with open("votes/"+user+"_vote.txt", "r") as saved_file:
+                            output = str(saved_file.read())
+                            return(jsonify({"error":"none", "type":"decryption","text":output}))
+                        except:
+                            return(jsonify({"error":"password"}))
+                    else:
+                        return(jsonify({"error":"password"}))
         else:
             with open("votes/"+user+"_vote.txt", "r") as saved_file:
                 output = str(saved_file.read())
