@@ -106,7 +106,7 @@
                         }
                         else {
                             while (resp.firstChild) {
-                                resp.removeChild(myNode.firstChild);
+                                resp.removeChild(resp.firstChild);
                             }
                             var p = document.createElement("p");
                             p.innerHTML = "Zaszyfrowano i zapisano!"
@@ -115,7 +115,7 @@
                     }
                     else {
                         while (resp.firstChild) {
-                            resp.removeChild(myNode.firstChild);
+                            resp.removeChild(resp.firstChild);
                         }
                         var p = document.createElement("p");
                         p.innerHTML = "Wystąpił jakiś błąd. Czy na pewno wprowadziłeś poprawne hasło?"
@@ -174,7 +174,7 @@
             });
             textInput.value = decrypted.toString(CryptoJS.enc.Utf8);
             while (resp.firstChild) {
-                resp.removeChild(myNode.firstChild);
+                resp.removeChild(resp.firstChild);
             }
             var p = document.createElement("p");
             p.innerHTML = "Odszyfrowano"
