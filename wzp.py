@@ -8,11 +8,11 @@ def save():
     password = str(request.json['password'])
     try:
         with open("writable.txt", 'r') as writable:
-            wr = int(writable.read())
+            wr = int(str(writable.read()).replace("\n", ""))
         if wr:
             with open(user+"_password.txt", "r") as password_file:
 
-                if password == password_file.read():
+                if password == str(password_file.read()).replace("\n", ""):
                     with open(user+"_vote.txt", "w") as saved_file:
                         saved_file.write(text)
                         return(jsonify({"error":"none", "type":"encryption"}))
