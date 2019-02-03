@@ -17,6 +17,8 @@
   ```bash
   python main.py
   ```
+  **UWAGA:** domyślnie plik jest skonfigurowany by działać z tls. Do tego potrzene są pliki certyfikatu ssl w głównym folderze ze skryptem, nazwane ```cert.pem``` dla certyfikatu i ```key.pem``` dla klucza. By serwować przez nieszyfrowane połączenie, lub na serwerze lokalnym trzeba zmienić ostatnie linie pliku ```main.py``` - dokładniej jest to opisane w komentarzach w skrypcie.
+  
   Albo zainstalować własny webserver. Jest to zalecane rozwiązane produkcyjne, ponieważ serwer flaska został stworzony jedynie do prostego debuggowania.
   
 ## Użytkowanie (hosting):
