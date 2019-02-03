@@ -2,19 +2,20 @@
 <html lang="pl">
  
 <head>
-    <title>głosowanie</title>
+    <title>Głosowanie</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut-icon" href="favicon.ico" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="scripts/vanilla.js"></script>
-    <!--<script src="scripts/CryptoJS/rollups/pbkdf2.js"></script>
-    <script src="scripts/CryptoJS/rollups/aes.js"></script>-->
+    <script src="../scripts/CryptoJS/rollups/pbkdf2.js"></script>
+    <script src="../scripts/CryptoJS/rollups/aes.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/pbkdf2.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/pbkdf2.js"></script>-->
     <style>
         .title {
             text-align: center;
@@ -27,7 +28,7 @@
             padding: 12px 20px;
             margin: 8px 0;
             display: inline-block;
-            border: 1px solid #3fb8e8;
+            border: 1px solid #00E5FF;
             border-radius: 4px;
             box-sizing: border-box;
         }
@@ -36,7 +37,7 @@
             padding: 12px 20px;
             margin: 8px 0;
             display: inline-block;
-            border: 1px solid #3fb8e8;
+            border: 1px solid #00E5FF;
             border-radius: 4px;
             box-sizing: border-box;
         }
@@ -48,10 +49,10 @@
             border:none;
             outline:none;
             box-shadow:0 3px 2px 0 #2c80a2;
-            color:#fff;
+            color:#FFEA00;
             font-size:14px;
             text-shadow:0 1px rgba(0,0,0,0.4);
-            background-color:#3fb8e8;
+            background-color:#00E5FF;
             font-weight:700;
             background-repeat:no-repeat;
             background-position:200px
@@ -59,7 +60,12 @@
         #request:hover{
             background-color: #32a9d8;
         }
-
+        #response{
+            padding: 2em;
+            text-align: center;
+            color: #00E5FF;
+            text-emphasis: bolder;
+        }
     </style>
 
 </head>
@@ -75,7 +81,7 @@
                 <input type="text" pattern="\w*" placeholder="Twój głos" id="text">
                 <input type="password" pattern="\w*" placeholder="Otrzymane hasło" id="password">
                 <input type="password" pattern="\w*" placeholder="Hasło do szyfrowania" id="encryption">
-                <button type="submit" id="request">Wyślij</button>
+                <button type="submit" id="request">WYŚLIJ</button>
             </form>
         </div>
         <div id="response">
