@@ -15,7 +15,7 @@
   ```
   Następnie można uruchomić wbudowany serwer flask:
   ```bash
-  python wzp.py
+  python main.py
   ```
   Albo zainstalować własny webserver. Jest to zalecane rozwiązane produkcyjne, ponieważ serwer flaska został stworzony jedynie do prostego debuggowania.
   
