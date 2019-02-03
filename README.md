@@ -8,13 +8,13 @@
   Kiedy zakończy się głosowanie wystarczy podać login i hasło do szyfrowania by odzyskać głos danej osoby.
 ## Instalacja:
   By zainstalować wystarczy sklonować repozytorium i zainstalować potrzebne moduły. Po kolei:
-  ```
+  ```bash
   git clone https://github.com/opliko95/WZP-voting-website
   cd WZP-voting-website
   pip install -r requirements.txt
   ```
   Następnie można uruchomić wbudowany serwer flask:
-  ```
+  ```bash
   python wzp.py
   ```
   Albo zainstalować własny webserver. Jest to zalecane rozwiązane produkcyjne, ponieważ serwer flaska został stworzony jedynie do prostego debuggowania.
