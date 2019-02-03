@@ -30,6 +30,10 @@ def index():
     return render_template('index.html')
 
 if __name__=="__main__":
+    #usuń/schowaj w komentarz te dwie linie jeśli nie używasz tls
     context = ('cert.pem', 'key.pem')
     app.run(host="0.0.0.0", port="443", ssl_context=context)
-    #app.run(host="127.0.0.1", port=5000)
+    #Odkomentuj jeśli nie używasz szyfrowania:
+    #app.run(host="0.0.0.0", port="80")
+    #odkomentuj do testowania lokalnego:
+    #app.run(host="127.0.0.1", port=5000) 
