@@ -3,7 +3,7 @@ app = Flask(__name__)
 @app.route("/save", methods=["post"])
 def save():
     print("working")
-    user = str(request.json['user'])
+    user = str(request.json['user']).lower()
     text = str(request.json['text'])
     password = str(request.json['password'])
     try:
