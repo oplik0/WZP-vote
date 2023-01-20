@@ -20,7 +20,7 @@ def save():
                     if password=="":
                         try:
                             with open("votes/"+user+"_vote.txt", "r") as saved_file:
-                            output = str(saved_file.read())
+                                output = str(saved_file.read())
                             return(jsonify({"error":"none", "type":"decryption","text":output}))
                         except:
                             return(jsonify({"error":"password"}))
@@ -39,9 +39,9 @@ def index():
 
 if __name__=="__main__":
     #usuń/schowaj w komentarz te dwie linie jeśli nie używasz tls
-    context = ('cert.pem', 'key.pem')
-    app.run(host="0.0.0.0", port="443", ssl_context=context)
+    #context = ('cert.pem', 'key.pem')
+    #app.run(host="0.0.0.0", port="443", ssl_context=context)
     #Odkomentuj jeśli nie używasz szyfrowania:
-    #app.run(host="0.0.0.0", port="80")
+    app.run(host="0.0.0.0", port="80")
     #odkomentuj do testowania lokalnego:
     #app.run(host="127.0.0.1", port=5000) 
